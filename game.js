@@ -1,13 +1,16 @@
 var Platformer;
 document.addEventListener('DOMContentLoaded', function() {
+
+	//This is non engine related stuff like ... making a game
 	Platformer = new Game.GameEngine('Gamer',{
 		config: {
 			width:600,
 			height:300,
-			gravity:'1.5'
+			gravity:'9.8'
 		}
 	});
-	var player = new Game.Actor.Shape({		
+
+	var player = new Game.Actor.Player({		
 		name: 'Player',
 		apply_gravity:true,
 		
@@ -21,29 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	})
 	player.add_to_engine(Platformer);
 	
-	//This is non engine related stuff like ... making a game
-	player.tick = 0;
 	player.check_floor = function(){
 		if(this.avatar.y > Platformer.canvas.height-this.avatar.h){
-			this.avatar.y = Platformer.canvas.height-this.avatar.h;
+			this.avatar.y = Platformer.canvas.height-this.avatar.h-2;
 		}
+	}.bind(player);
+	
+	var checkFloor = player.add_to_on(player.check_floor);	
+	
+	var jumpy = function(){
+		player.add_to_on(player.jump);
 	}
 	
-	player.check_tick = function(){
-		this.tick = this.tick+1;
-		if(this.tick > 400){
-			this.avatar.upForce = 160;
-			this.tick = 0;
-		} else {
-			this.avatar.upForce = 0;
-		}
-		
-	}
-	
-	player.on = function(){
-		player.check_floor();
-		player.check_tick();
-	}
+	setInterval(jumpy, 3000);
 	
 	Platformer.init();
 });
