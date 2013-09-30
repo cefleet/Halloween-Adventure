@@ -49,12 +49,12 @@ Game.Util.extend(Game.Actor.Player.prototype, {
 	
 	move_left : function(id){
 		//todo this is just an arbituary number
-		this.move(-8,0);
+		this.move(-4,0);
 		this.remove_from_on(id);
 	},
 	
 	move_right: function(id){
-		this.move(8,0);
+		this.move(4,0);
 		this.remove_from_on(id);
 	},
 	

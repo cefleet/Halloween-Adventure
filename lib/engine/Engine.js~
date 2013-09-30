@@ -23,7 +23,8 @@ Game.GameEngine = function GameEngine(name,options){
 	this.frame = 0;
 	this.acD = 0;
 	//17 ~= 60 fps (1/(FPS)*1000
-	this.msPerFrame = this.msPerFrame || 17;	
+	this.msPerFrame = this.msPerFrame || 17;
+	
 };
 
 
