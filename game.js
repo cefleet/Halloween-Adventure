@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		config: {
 			width:800,
 			height:600,
+			backgroundColor:'#efefef',
 			gravity:12,
+			
 		}
 	});
 
@@ -64,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			y:460,
 			h:150,
 			w:100,
-			fill:'#dddddd'
+			fill:'#222222'
 		}
 	});
 	
