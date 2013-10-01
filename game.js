@@ -17,7 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	var resources = {
 		player:{
 			url:'resources/sprites/player.png'
+		},
+		background:{
+			url:'resources/backgrounds/background.png'
 		}
+		
 	};
 	
 	resObjs = {};
@@ -37,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		sprite : {
 			x:10,
 			y:10,
-			h:40,
-			w:40,
+			h:50,
+			w:50,
 			fill:'#35b517',
 			_mass:3,
 			type:'sprite',
@@ -87,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var keyMap = new Game.KeyMap({
 		"move_left": {
 			key_code:65,
-			key_value:'a',
+			key_ddavalue:'a',
 			action:player.move_left,
 			bind: player
 		},
@@ -114,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	//overides the default renderer
 	Platformer.render = function(){
+		
 		bob++;
 		if(bob < 3){
 			console.log(resObjs);
@@ -176,7 +181,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				player.move_to(platform.structure.x-player.sprite.w-8,null);
 			}
 		}
-				
+	
+		this.ctx.drawImage(resObjs.background.image,0,0,800,600,0, 0, 800, 600);
+	
 		this.actors.forEach(function(actor){
 			actor.on();
 		}.bind(this));
