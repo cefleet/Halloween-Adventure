@@ -11,26 +11,43 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
+	//This of course needs to be an object
+	var resources = {
+		player:{
+			url:'resources/sprites/player.png'
+		}
+	};
+	
+	resObjs = {};
+	
+	//TODO this is all wrong
+	for(resource in resources){
+		resObjs[resource] = new Game.Resource(resources[resource]);
+		resObjs[resource].load(resources[resource].url);
+	}
+
 	var player = new Game.Actor.Player({		
 		name: 'Player',
 		apply_gravity:true,
 		_jump_force:350,
 		//this is affected by fps
 		_jump_range:10,
-		avatar : {
+		sprite : {
 			x:10,
 			y:10,
 			h:40,
 			w:40,
 			fill:'#35b517',
-			_mass:3
+			_mass:3,
+			type:'sprite',
+			image : resObjs.player
 		}
 	});
 	
 	var enemy = new Game.Actor({		
 		name: 'Enemey',
 		apply_gravity:true,
-		avatar : {
+		sprite : {
 			x:500,
 			y:10,
 			h:60,
@@ -58,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	platform.add_to_engine(Platformer);
 	
 	Game.Actor.prototype.check_floor = function(){
-		if(this.avatar.y > Platformer.canvas.height-this.avatar.h){
-			this.avatar.y = Platformer.canvas.height-this.avatar.h;
+		if(this.sprite.y > Platformer.canvas.height-this.sprite.h){
+			this.sprite.y = Platformer.canvas.height-this.sprite.h;
 			this._can_jump = true;
 		}
 	}
@@ -95,7 +112,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	//overides the default renderer
 	Platformer.render = function(){
-		
+		bob++;
+		if(bob < 3){
+			console.log(resObjs);
+		}
 		//checks the key events 
 		for(keyEvent in keyMap.keyEvents){
 			if(keyMap.isDown(keyEvent)){
@@ -107,10 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 		
-		var eContact = player.collides_with(enemy.avatar);
+		var eContact = player.collides_with(enemy.sprite);
 		if(eContact){
 			if(eContact.indexOf('bottom') > -1){										
-				//player.move_to(null,platform.structure.y-player.avatar.h);
+				//player.move_to(null,platform.structure.y-player.sprite.h);
 				//player.add_to_on(player.jump)
 				player.move(0,-10);
 			}
@@ -134,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			if(pContact.indexOf('bottom') > -1){										
 				
 				if([1,2,3,4].indexOf(player._jump) < 0){
-					player.move_to(null,platform.structure.y-player.avatar.h);
+					player.move_to(null,platform.structure.y-player.sprite.h);
 					player._can_jump = true;			
 				}
 			}
@@ -151,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 			
 			if(pContact.indexOf('right') > -1){
-				player.move_to(platform.structure.x-player.avatar.w-8,null);
+				player.move_to(platform.structure.x-player.sprite.w-8,null);
 			}
 		}
 				
