@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		config: {
 			width:800,
 			height:600,
-			gravity:18,
+			gravity:12,
 		}
 	});
 
 	var player = new Game.Actor.Player({		
 		name: 'Player',
 		apply_gravity:true,
-		_jump_force:290,
+		_jump_force:350,
 		//this is affected by fps
 		_jump_range:10,
 		avatar : {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			h:40,
 			w:40,
 			fill:'#35b517',
-			_mass:1.8
+			_mass:3
 		}
 	});
 	
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		name: 'Enemey',
 		apply_gravity:true,
 		avatar : {
-			x:404,
+			x:500,
 			y:10,
 			h:60,
 			w:20,
@@ -43,13 +43,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		name:'aPlatform',
 		apply_gravity:false,
 		structure: {
-			x:200,
+			x:10,
 			y:460,
-			h:30,
-			w:160,
+			h:150,
+			w:100,
 			fill:'#dddddd'
 		}
 	});
+	
 	//probably should do this from the engine as well
 	//Engine.add_to_engine(player);
 	player.add_to_engine(Platformer);
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		for(keyEvent in keyMap.keyEvents){
 			if(keyMap.isDown(keyEvent)){
 				
-				if(keyMap.keyEvents[keyEvent] != 'jump' || player._jump == null){
+				if(keyMap.keyEvents[keyEvent] != 'jump' || player._can_jump == true){
   					var action = keyMap.keyEvents[keyEvent];
 					keyMap.map[action].bind.add_to_on(keyMap.map[action].action);
 				}
@@ -108,27 +109,49 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		var eContact = player.collides_with(enemy.avatar);
 		if(eContact){
-
+			if(eContact.indexOf('bottom') > -1){										
+				//player.move_to(null,platform.structure.y-player.avatar.h);
+				//player.add_to_on(player.jump)
+				player.move(0,-10);
+			}
+			
+			if(eContact.indexOf('top') > -1){				
+				//cannot really happen here
+			}
+			
+			if(eContact.indexOf('left') > -1){
+				enemy.move(-10,0);
+			}
+			
+			if(eContact.indexOf('right') > -1){
+				enemy.move(10,0);
+			}
 		}
 		
 		var pContact = player.collides_with(platform.structure);
+		
 		if(pContact){
-			if(pContact.indexOf('bottom') > -1){
-				player.can_jump = true;
-				player.move_to(null,platform.structure.y-player.avatar.h);
+			if(pContact.indexOf('bottom') > -1){										
+				
+				if([1,2,3,4].indexOf(player._jump) < 0){
+					player.move_to(null,platform.structure.y-player.avatar.h);
+					player._can_jump = true;			
+				}
 			}
+			
 			if(pContact.indexOf('top') > -1){
+				
 				player.move_to(null,platform.structure.y+platform.structure.h+6);
-				if(player._jump > 2){
-					player._stop_jump();
-				}			
+				player._stop_jump();		
 
 			}
+			
 			if(pContact.indexOf('left') > -1){
-				player.move(-4,0);
+				player.move_to(platform.structure.x+platform.structure.w+8,null);
 			}
+			
 			if(pContact.indexOf('right') > -1){
-				player.move(4,0);
+				player.move_to(platform.structure.x-player.avatar.w-8,null);
 			}
 		}
 				
