@@ -8,28 +8,35 @@ document.addEventListener('DOMContentLoaded', function() {
 			width:800,
 			height:600,
 			backgroundColor:'#efefef',
-			gravity:12,
-			
+			gravity:12			
 		}
 	});
 
-	//This of course needs to be an object
 	var resources = {
-		player:{
-			url:'resources/sprites/player.png'
+		Sprite:{
+			player:{
+				name:'player',
+				"id":"player1",
+				url:'resources/sprites/player.png'
+			},
 		},
-		background:{
-			url:'resources/backgrounds/background.png'
+		Background:{
+			background:{
+				url:'resources/backgrounds/background.png'
+			}
 		}
-		
 	};
 	
 	resObjs = {};
 	
 	//TODO this is all wrong
-	for(resource in resources){
-		resObjs[resource] = new Game.Resource(resources[resource]);
-		resObjs[resource].load(resources[resource].url);
+	for(type in resources){
+		for(resource in resources[type]){			
+			resObjs[resource] = new Game.Resource.Image[type](resources[type][resource]);
+			resObjs[resource].add_to_engine(Platformer);
+			//console.log(resObjs[resource]);
+			//resObjs[resource].load(resources[type][resource].url);		
+		}
 	}
 
 	var player = new Game.Actor.Player({		
@@ -43,10 +50,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			y:10,
 			h:50,
 			w:50,
-			fill:'#35b517',
 			_mass:3,
 			type:'sprite',
-			image : resObjs.player
+			image : resObjs.player,
+			positions : {
+				'left':{
+					x:0,
+					y:0
+				},
+				'right':{
+					x:50,
+					y:0
+				}
+			}
 		}
 	});
 	
@@ -114,15 +130,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	player.add_to_on(player.check_floor);	
 	enemy.add_to_on(enemy.check_floor);
 	keyMap.listen_for_key_event();
-	var bob = 1;
 
 	//overides the default renderer
 	Platformer.render = function(){
 		
-		bob++;
-		if(bob < 3){
-			console.log(resObjs);
-		}
+		
 		//checks the key events 
 		for(keyEvent in keyMap.keyEvents){
 			if(keyMap.isDown(keyEvent)){
@@ -181,9 +193,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				player.move_to(platform.structure.x-player.sprite.w-8,null);
 			}
 		}
-	
-		this.ctx.drawImage(resObjs.background.image,0,0,800,600,0, 0, 800, 600);
-	
+		//TODO this would not be needed if all the resources were pre-loaded
+		if(resObjs.background.image != '' && resObjs.background.image != null){
+			this.ctx.drawImage(resObjs.background.image,0,0,800,600,0, 0, 800, 600);
+		}
 		this.actors.forEach(function(actor){
 			actor.on();
 		}.bind(this));
@@ -191,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		/*
 		for(bbox in player.boxes){
-			Platformer.ctx.globalAlpha=0.5;
 			Platformer.ctx.fillStyle ='#'+Math.floor(Math.random()*16777215).toString(16);
 			Platformer.ctx.fillRect(player.boxes[bbox].x, player.boxes[bbox].y, player.boxes[bbox].w, player.boxes[bbox].h);
 		}
