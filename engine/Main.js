@@ -19,5 +19,5 @@ var libFiles = [
 ];
 
 for (var i=0, len=libFiles.length; i<len; i++) {
-	document.write("<script src='lib/" + libFiles[i] + "'></script>");
+	document.write("<script src='engine/lib/" + libFiles[i] + "'></script>");
 }

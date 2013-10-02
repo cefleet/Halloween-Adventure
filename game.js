@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 		
+		var contacts = player.collides_with_actors();
 		var eContact = player.collides_with(enemy.sprite);
 		if(eContact){
 			if(eContact.indexOf('bottom') > -1){										

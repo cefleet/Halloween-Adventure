@@ -56,21 +56,36 @@ Game.Actor.Player = new Game.Class(Game.Actor,{
 		this.remove_from_on(id);
 	},
 	
+	//can be an object or string + object or id
 	collides_with:function(object){
+		
 		var colLoc = [];
 		if(this.engine.collider.any_contact(this.boxes.fullBox, object)){
-			
+		
 			for(box in this.boxes){
 				if(box != 'fullBox'){
 					if(this.engine.collider.any_contact(this.boxes[box],object)){
 						colLoc.push(box);
 					}
 				}
-			}
-						
+			}						
 			return colLoc;
 		} else {
 			return false;
 		};
+	},
+	
+	//TODO this should be under the actor not the player.. actually all of these should kinda be there
+	collides_with_actors : function(){
+		var collides = {};
+		this.engine.actors.forEach(function(actor){
+			if(actor.id != this.id){
+				var results = this.collides_with(actor.sprite);
+				if(results){
+					collides[actor.id] = results;
+				}
+			}
+		}.bind(this));
+		return collides;
 	}
 });
