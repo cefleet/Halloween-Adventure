@@ -7,20 +7,23 @@ Game.GameEngine = new Game.Class({
 	initialize: function(name,options){
 		this.name = name;
 		Game.Util.extend(this,options);	
-	
+		
 		this.config = this.config || {}
 		this.config.apply_gravity = this.config.apply_gravity || true;
 		this.config.height = this.config.height || 400;
 		this.config.width = this.config.width || 400;
 		this.config.gravity = this.config.gravity || 2;
 		this.key_frame_number = this.key_frame_number || 6;
-		
+			
 		this.canvas = this.canvas || $nE('canvas', {id:"game"});
 		this.canvas.width = this.config.width;
 		this.canvas.height = this.config.height;
+		
 		this.gravity = new Game.Gravity(this.config.gravity);
 		this.collider = new Game.Collision(); 
 		this.apply_gravity = this.config.apply_gravity; //false may be error here
+
+		this.backgrounds = this.backgrounds || [];
 		this.actors = this.actors || [];
 		this.structures = this.structures || [];
 	
@@ -46,9 +49,14 @@ Game.GameEngine = new Game.Class({
 	pre_render: function(){
 		this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
 		
+		this.backgrounds.forEach(function(bg){
+			//todo put in the correct sizes
+				this.ctx.drawImage(bg.background.image,0,0,800,600,0, 0, 800, 600);
+		}.bind(this));
+		
 		this.actors.forEach(function(actor){					
 			//apply gravity
-			if(this.apply_gravity && actor.apply_gravity){
+			if(this.apply_gravity && actor.physics.apply_gravity){
 				this.gravity.apply_to_actor(actor);
 			}			
 		}.bind(this));
@@ -90,8 +98,7 @@ Game.GameEngine = new Game.Class({
 			//preform the actors actions
 			actor.on();
 						
-		}.bind(this));
-		
+		}.bind(this));		
 	},
 	
 	/*

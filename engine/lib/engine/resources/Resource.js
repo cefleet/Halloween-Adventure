@@ -24,6 +24,8 @@ Game.Resource = new Game.Class({
 			engine.resources[this.type] = {};
 		}
 		engine.resources[this.type][this.id] = this;
+	
+		this.engine = engine;
 	}	
 });
 

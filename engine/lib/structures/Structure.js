@@ -10,7 +10,18 @@ Game.Structure.prototype = {
 	
 		Game.Util.extend(this, options);
 		this.apply_gravity  = this.apply_gravity || false;
-		//this.passable can also be an object 
+		/*this.passable can also be an object {
+			top: {
+				from_top:false,
+				from_bottom:true,
+			},
+			left: {
+				from_left:false,
+				from_right:true
+			}
+			etc
+		}
+		*/
 		this.passable = this.passable || false;
 	},
 	

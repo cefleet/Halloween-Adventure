@@ -10,7 +10,7 @@ Game.Gravity  = new Game.Class({
 	},
 	
 	apply_to_actor : function(actor){
-		this.apply(actor.sprite,actor.sprite._yVelocity);
+		this.apply(actor.location,actor.physics.yVelocity);
 	},
 	
 	apply_to_structure : function(structure){
