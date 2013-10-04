@@ -49,16 +49,23 @@ Game.GameEngine = new Game.Class({
 	pre_render: function(){
 		this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
 		
+		//add backgrounds
 		this.backgrounds.forEach(function(bg){
-			//todo put in the correct sizes
-				this.ctx.drawImage(bg.background.image,0,0,800,600,0, 0, 800, 600);
+			//TODO we could actually offset and move backgrounds at differnet levels if we wanted to
+			this.ctx.drawImage(bg.background.image,0,0,this.canvas.width,this.canvas.height);
 		}.bind(this));
 		
 		this.actors.forEach(function(actor){					
 			//apply gravity
 			if(this.apply_gravity && actor.physics.apply_gravity){
 				this.gravity.apply_to_actor(actor);
-			}			
+			}
+			
+			//actor.collides_with_structures();
+			
+			//actor.adjust_position_to_structures();
+		//	actor.collides_with_actors();
+			
 		}.bind(this));
 		
 		this.structures.forEach(function(structure){
@@ -66,6 +73,7 @@ Game.GameEngine = new Game.Class({
 				this.gravity.apply_to_structure(structure);
 			}
 		}.bind(this));
+		
 	},
 	
 	/*
@@ -77,13 +85,21 @@ Game.GameEngine = new Game.Class({
 	 */
 	post_render: function(){
 		
+		//post render needs just to draw
+		
 		this.structures.forEach(function(structure){
 			structure.draw(this.ctx);
+			structure._location.x = structure.location.x;
+			structure._location.y = structure.location.y;
+
 		}.bind(this));
 		
 		//redraws the elements
-		this.actors.forEach(function(actor){
+		this.actors.forEach(function(actor){			
 			actor.draw(this.ctx);
+			actor._location.x = actor.location.x;
+			actor._location.y = actor.location.y;
+			
 		}.bind(this));
 	},
 	

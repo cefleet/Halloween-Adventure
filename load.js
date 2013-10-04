@@ -100,21 +100,75 @@ function load(){
 		}
 	});
 	*/
-	var platform = new Game.Structure({
+	var starting = new Game.Structure({
 		name:'aPlatform',
 		apply_gravity:false,
+		size:{
+			w:60,
+			h:120
+		},
+		location:{
+			x:0,
+			y:480
+		},
 		structure: {
-			x:10,
-			y:460,
-			h:150,
-			w:100,
 			fill:'#222222'
+		}	
+	});
+	
+	var secondPlatform = new Game.Structure({
+		name:'lifted',
+		apply_gravity: false,
+		size:{
+			w:120,
+			h:20
+		},
+		location:{
+			x: 140,
+			y:400
+		},
+		structure:{
+			fill:"#447700"
+		}
+	});
+	
+	var thirdPlatform = new Game.Structure({
+		name:'third',
+		apply_gravity: false,
+		size:{
+			w:100,
+			h:30
+		},
+		location:{
+			x:400,
+			y:380
+		},
+		structure:{
+			fill:"#447700"
+		}
+	});
+	
+	var fouthPlatform = new Game.Structure({
+		name:'third',
+		apply_gravity: false,
+		size:{
+			w:70,
+			h:100
+		},
+		location:{
+			x: 700,
+			y:500
+		},
+		structure:{
+			fill:"#447700"
 		}
 	});
 	
 	player.add_to_engine(Platformer);
-	//enemy.add_to_engine(Platformer);
-	platform.add_to_engine(Platformer);
+	starting.add_to_engine(Platformer);
+	secondPlatform.add_to_engine(Platformer);
+	thirdPlatform.add_to_engine(Platformer);
+	fouthPlatform.add_to_engine(Platformer);
 	
 	var keyMap = new Game.KeyMap({
 		"move_left": {

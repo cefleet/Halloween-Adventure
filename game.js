@@ -98,6 +98,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		}*/
 		this.actors.forEach(function(actor){
 			actor.on();
+			actor.calculate_heading();
+			actor.intersects_structures_line_borders();
+			actor.collides_with_structures();
+			actor.adjust_position_to_structures();
+			
 		}.bind(this));
 		
 	/*
@@ -112,6 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		Platformer.ctx.fillStyle ='#'+Math.floor(Math.random()*16777215).toString(16);
 		Platformer.ctx.fillRect(player.boxes.top.x, player.boxes.top.y, player.boxes.top.w, player.boxes.top.h);
 		 */
+	//var player = Platformer.actors[0];
+	//Platformer.ctx.fillStyle ='#'+Math.floor(Math.random()*16777215).toString(16);
+	//Platformer.ctx.fillRect(player.boxes.left.x, player.boxes.left.y, player.boxes.left.w, player.boxes.left.h);
+	
 		
 	}.bind(Platformer);
 		
