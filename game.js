@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	Platformer.actors.forEach(function(actor){
 		actor.add_to_on(actor.check_floor);
 	});
+	
+	Platformer.texts.forEach(function(text){
+		text.add_to_on(text.show)
+	});
 	/*
 	player.add_to_on(player.check_floor);	
 	enemy.add_to_on(enemy.check_floor);
@@ -105,18 +109,23 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 		}.bind(this));
 		
-	/*
+		this.texts.forEach(function(text){
+			text.on();			
+		}.bind(this));
 		
+/*
+
 		for(bbox in this.actors[0].boxes){
 			Platformer.ctx.fillStyle ='#'+Math.floor(Math.random()*16777215).toString(16);
 			Platformer.ctx.fillRect(this.actors[0].boxes[bbox].x, this.actors[0].boxes[bbox].y, this.actors[0].boxes[bbox].w, this.actors[0].boxes[bbox].h);
 		}
-		
-		/*
+
 		Platformer.ctx.globalAlpha=0.5;
 		Platformer.ctx.fillStyle ='#'+Math.floor(Math.random()*16777215).toString(16);
 		Platformer.ctx.fillRect(player.boxes.top.x, player.boxes.top.y, player.boxes.top.w, player.boxes.top.h);
-		 */
+
+*/
+	
 	//var player = Platformer.actors[0];
 	//Platformer.ctx.fillStyle ='#'+Math.floor(Math.random()*16777215).toString(16);
 	//Platformer.ctx.fillRect(player.boxes.left.x, player.boxes.left.y, player.boxes.left.w, player.boxes.left.h);

@@ -29,6 +29,7 @@ Game.Structure = new Game.Class({
 		}
 		*/
 		this.structure.size = this.structure.size || this.size;
+		this.structure.fill = this.structure.fill || '#000000';
 		this.passable = this.passable || false;
 		this.bbox_padding = this.bbox_padding || 0;
 		this._location = {};

@@ -27,7 +27,7 @@ Game.GameEngine = new Game.Class({
 		this.actors = this.actors || [];
 		this.structures = this.structures || [];
 		this.events = this.events || [];
-		
+		this.texts = this.texts || [];
 		//JUst stuff dealing with slowing down the animation
 		this.lUT = 0;
 		this.frame = 0;
@@ -102,6 +102,13 @@ Game.GameEngine = new Game.Class({
 			actor._location.y = actor.location.y;
 			
 		}.bind(this));
+		
+		this.texts.forEach(function(text){	
+			if(text._show){
+				text.draw();
+			}		
+		}.bind(this));
+		
 	},
 	
 	/*

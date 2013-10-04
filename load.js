@@ -73,6 +73,19 @@ function load(){
 		}
 	});
 	*/
+	
+	var openTxt = new Game.Text({
+		name:'OpenText',
+		text:'Halloween Adventure',
+		font:'80px Georgia',
+		location: {
+			x:50,
+			y:99
+		}
+	});
+	
+	openTxt.add_to_engine(Platformer);
+	
 	var starting = new Game.Structure({
 		name:'aPlatform',
 		apply_gravity:false,
@@ -90,21 +103,116 @@ function load(){
 	});
 	
 	var secondPlatform = new Game.Structure({
-		name:'lifted',
+		name:'second',
 		apply_gravity: false,
 		size:{
 			w:120,
 			h:20
 		},
 		location:{
-			x: 140,
-			y:400
+			x: 100,
+			y:500
 		},
 		structure:{
-			fill:"#447700"
+			fill:"#000000"
 		}
 	});
 	
+	secondPlatform.add_to_engine(Platformer);
+	
+	var thirdPlatform = new Game.Structure({
+		name:'third',
+		apply_gravity: false,
+		size:{
+			w:55,
+			h:90
+		},
+		location:{
+			x:240,
+			y:510
+		},
+		structure:{
+			fill:"#2930ba"
+		}
+	});
+	
+	thirdPlatform.add_to_engine(Platformer);
+	
+	var forthPlatform = new Game.Structure({
+		name:'forth',
+		apply_gravity: false,
+		size:{
+			w:70,
+			h:20
+		},
+		location:{
+			x:320,
+			y:400
+		},
+		structure:{
+			fill:"#000000"
+		}
+	});	
+	
+	forthPlatform.add_to_engine(Platformer);
+	
+	var fithPlatform = new Game.Structure({
+		name:'fith',
+		apply_gravity: false,
+		size:{
+			w:50,
+			h:50
+		},
+		location:{
+			x:490,
+			y:300
+		},
+		structure:{
+			fill:"#2930ba"
+		}
+	});	
+	
+	fithPlatform.add_to_engine(Platformer);
+	
+	var sixthPlatform = new Game.Structure({
+		name:'sixth',
+		apply_gravity: false,
+		size:{
+			w:40,
+			h:40
+		},
+		location:{
+			x:580,
+			y:200
+		},
+		structure:{
+			fill:"#000000"
+		}
+	});	
+	
+	sixthPlatform.add_to_engine(Platformer);
+	
+	var finalPlatform = new Game.Structure({
+		name:'final',
+		apply_gravity: false,
+		size:{
+			w:100,
+			h:500
+		},
+		location:{
+			x:700,
+			y:110
+		},
+		structure:{
+			fill:"#2930ba"
+		}
+	});	
+	
+	finalPlatform.add_to_engine(Platformer);
+	
+	/*
+
+	/*
 	var thirdPlatform = new Game.Structure({
 		name:'third',
 		apply_gravity: false,
@@ -136,12 +244,12 @@ function load(){
 			fill:"#447700"
 		}
 	});
-	
+	*/
 	player.add_to_engine(Platformer);
 	starting.add_to_engine(Platformer);
-	secondPlatform.add_to_engine(Platformer);
-	thirdPlatform.add_to_engine(Platformer);
-	fouthPlatform.add_to_engine(Platformer);
+	//secondPlatform.add_to_engine(Platformer);
+	//thirdPlatform.add_to_engine(Platformer);
+	//fouthPlatform.add_to_engine(Platformer);
 	
 	var keyMap = new Game.KeyMap({
 		"move_left": {
