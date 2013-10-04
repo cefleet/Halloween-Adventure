@@ -1,16 +1,10 @@
-Game.Structure = function Structure(options){
-	this.structure = {};
-	this.id = $uid();
-	this.location = {};
-	this.size = {};
-	this.initilize(options);
-	
-}
-
-Game.Structure.prototype = {
-	
-	initilize: function(options){
-	
+Game.Structure = new Game.Class({
+		
+	initialize: function(options){
+		this.structure = {};
+		this.id = $uid();
+		this.location = {};
+		this.size = {};
 		Game.Util.extend(this, options);
 		this.apply_gravity  = this.apply_gravity || false;
 		this.location = this.location || {
@@ -89,5 +83,4 @@ Game.Structure.prototype = {
 		engine.structures.push(this);
 		this.engine = engine;
 	}
-
-}
+});

@@ -26,7 +26,8 @@ Game.GameEngine = new Game.Class({
 		this.backgrounds = this.backgrounds || [];
 		this.actors = this.actors || [];
 		this.structures = this.structures || [];
-	
+		this.events = this.events || [];
+		
 		//JUst stuff dealing with slowing down the animation
 		this.lUT = 0;
 		this.frame = 0;

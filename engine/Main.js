@@ -5,6 +5,7 @@ var libFiles = [
 	"tools/Class.js",
 	"engine/Engine.js",
 	"engine/KeyMap.js",
+	"engine/Event.js",
 	"engine/resources/Resource.js",
 	"engine/resources/Image.js",
 	"engine/resources/Sprite.js",

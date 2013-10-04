@@ -238,44 +238,35 @@ Game.Actor = new Game.Class({
 	},
 	
 	//TODO REFRACTOR THE MESS OUT IF THIS NONSENSE
-	/*
+	/*This is also more of a placeholder to help Holton a more thorough method is needed This is very very buggy but works well enough for now
 	 * This needs to be called after check for collisions
 	 */
-	//This is also more of a placeholder to help Holton a more thorough method is needed
 	adjust_position_to_structures : function(){
 		
-		if(this._heading.x != 'still' || this._heading.y != 'still'){
+		//if(this._heading.x != 'still' || this._heading.y != 'still'){
 			
 			var borders = this.intersects.structures;
 			for(var s in borders){
 				var item = borders[s];
 				
 				if(this._heading.y == 'down'){
-					if(item.hasOwnProperty('bottom')){
+					if(item.hasOwnProperty('top')){
 						this._collide_bottom(thisStruct);										
 					}
 				}
 			
 				if(this._heading.y == 'up'){
 					if(item.hasOwnProperty('bottom')){
-						console.log('yes');
 						//this._collide_top(thisStruct);
 						this.move_to(null,item.structure.location.y+item.structure.size.h+6);	
 						this._stop_jump();			
 					}
-				//this.move_to(null,thisStruct.structure.location.y+thisStruct.structure.size.h);
 				}
 			}
-		
-			if(Object.keys(borders).length !== 0){
-				console.log(borders);
-			}
 			
-		} else {		
 		var structures = this.collisions.structures;
 			
-		//do heading first ..
-		//if there is not collision then calculate the other sides		
+		
 		for(var struct in structures){			
 			var thisStruct = structures[struct];
 			
@@ -289,7 +280,6 @@ Game.Actor = new Game.Class({
 				if(thisStruct.hasOwnProperty('top')){
 					this._collide_top(thisStruct);					
 				}
-				//this.move_to(null,thisStruct.structure.location.y+thisStruct.structure.size.h);
 			}
 			
 			if(this._heading.x == 'left'){
@@ -322,7 +312,7 @@ Game.Actor = new Game.Class({
 				this._collide_right(thisStruct);
 			}
 			*/	
-		}		
+		//}		
 		};
 	},
 	_collide_top : function(thisStruct){

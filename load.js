@@ -10,39 +10,12 @@ function load(){
 		}
 	});
 
-/*
-	var resources = {
-		Sprite:{
-			player:{
-				name:'player',
-				"id":"player1",
-				url:'resources/sprites/player.png'
-			},
-		},
-		Background:{
-			background:{
-				url:'resources/backgrounds/background.png'
-			}
-		}
-	};
-	
-	resObjs = {};
-	
-	//TODO this is all wrong
-	for(type in resources){
-		for(resource in resources[type]){			
-			resObjs[resource] = new Game.Resource.Image[type](resources[type][resource]);
-			resObjs[resource].add_to_engine(Platformer);
-		}
-	},
-*/	
 	var background = new Game.Resource.Image.Background({
 		name: 'level 1 background',
 		url: 'resources/backgrounds/background.png'
 	});
 	background.add_to_engine(Platformer);
 	background.set_background();
-	console.log(background);
 	
 	var player = new Game.Actor.Player({		
 		name: 'Player',
