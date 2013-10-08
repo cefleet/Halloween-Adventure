@@ -17,7 +17,8 @@ var libFiles = [
 	"levels/Level.js",
 	"actors/Actor.js",
 	"actors/Player.js",
-	"structures/Structure.js"
+	"structures/Structure.js",
+	"structures/EventTrigger.js"
 ];
 
 for (var i=0, len=libFiles.length; i<len; i++) {

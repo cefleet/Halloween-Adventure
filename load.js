@@ -210,6 +210,23 @@ function load(){
 	
 	finalPlatform.add_to_engine(Platformer);
 	
+	var exitTrigger = new Game.Structure.EventTrigger({
+		name:'level_1_exit',
+		apply_gravity: false,
+		size:{
+			w:60,
+			h:80
+		},
+		location:{
+			x:734,
+			y:30
+		},
+		structure:{
+			fill:'#000000'
+		}
+	});
+	
+	exitTrigger.add_to_engine(Platformer);
 	/*
 
 	/*

@@ -5,5 +5,11 @@ Game.Level = new Game.Class({
 		
 	},
 	
+	load : function(){
+		
+	},
 	
+	start: function(){
+		
+	}
 });
