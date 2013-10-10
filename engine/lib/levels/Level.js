@@ -4,8 +4,9 @@ Game.Level = new Game.Class({
 		Game.Util.extend(this,options);
 		this.id = this.id || $uid();
 		this.name = this.name || this.id;
-		this.objects_to_load = this.objects_to_load || {}
-		
+		this.structures = this.structures || [];
+		this.actors = this.actors || [];
+		this.events = this.events || [];	
 	},
 	
 	load : function(){
@@ -16,6 +17,7 @@ Game.Level = new Game.Class({
 			this.engine.store = {};
 		}
 		//store all structures,actors,backgrounds,events,text,and triggers
+		
 		this.engine.store.structures = this.engine.structures;
 		this.engine.structures = [];
 		this.engine.store.actors = this.engine.actors;
@@ -29,9 +31,8 @@ Game.Level = new Game.Class({
 		this.engine.store.triggers = this.engine.triggers;
 		this.engine.triggers = [];
 		
-		//load resources
-		console.log(this.engine);
-		
+		this.load_objects();		
+		this.setup();
 		
 		this.start();
 	},
@@ -50,7 +51,33 @@ Game.Level = new Game.Class({
 	},
 	
 	load_objects: function(){
+		//TODO for each of the object types run add_to_level for each item
+		//TODO for now it is doing the old add_to_engine
 		
+		this.actors.forEach(function(actor){
+			actor.add_to_engine(this.engine);
+		}.bind(this));
+		
+		this.structures.forEach(function(structure){
+			structure.add_to_engine(this.engine);
+		}.bind(this));
+		
+		this.backgrounds.forEach(function(background){
+			background.add_to_engine(this.engine);
+		}.bind(this));
+		
+		this.events.forEach(function(aEvent){
+			aEvent.add_to_engine(this.engine);
+		}.bind(this));
+		
+		this.texts.forEach(function(texts){
+			texts.add_to_engine(this.engine);
+		}.bind(this));
+		
+	},
+	setup: function(){
+		console.log('setting up');
+		this.backgrounds[0].set_background();
 	}
 	
 });
