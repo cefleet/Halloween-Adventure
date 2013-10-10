@@ -10,6 +10,12 @@ function load(){
 		}
 	});
 
+	var aLevel = new Game.Level({
+		name:'Level 1: armagedon!',
+	});
+
+	aLevel.add_to_engine(Platformer);
+
 	var background = new Game.Resource.Image.Background({
 		name: 'level 1 background',
 		url: 'resources/backgrounds/background.png'
@@ -213,6 +219,7 @@ function load(){
 	var exitTrigger = new Game.Structure.EventTrigger({
 		name:'level_1_exit',
 		apply_gravity: false,
+		passable:true,
 		size:{
 			w:60,
 			h:80
@@ -227,6 +234,20 @@ function load(){
 	});
 	
 	exitTrigger.add_to_engine(Platformer);
+	
+	var newEvent = new Game.Event({
+		action : function(){			
+			console.log('New Event Added!');
+			openTxt.text = 'Level 1 Completed';
+			openTxt.add_to_on(openTxt.show);
+			
+			//load level2
+		}
+	});
+	
+	exitTrigger.add_event_to_trigger(newEvent);
+
+
 	/*
 
 	/*

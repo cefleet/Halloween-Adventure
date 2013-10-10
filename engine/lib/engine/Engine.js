@@ -86,8 +86,7 @@ Game.GameEngine = new Game.Class({
 	 */
 	post_render: function(){
 		
-		//post render needs just to draw
-		
+		//post render needs just to draw		
 		this.structures.forEach(function(structure){
 			structure.draw(this.ctx);
 			structure._location.x = structure.location.x;
@@ -133,7 +132,7 @@ Game.GameEngine = new Game.Class({
 	
 	game_loop: function(){
 		 
-		 requestAnimFrame(this.game_loop.bind(this));
+		this.requestAnim = requestAnimFrame(this.game_loop.bind(this));
 		
 		 var delta = Date.now() - this.lUT;
 		 if(this.acD > this.msPerFrame){
@@ -149,5 +148,9 @@ Game.GameEngine = new Game.Class({
          this.acD += delta;
        };
        this.lUT = Date.now();
+	},
+	
+	stop_loop : function(){
+		cancelRequestAnimFrame(this.requestAnim);
 	}
 });

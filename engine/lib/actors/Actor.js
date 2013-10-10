@@ -207,6 +207,20 @@ Game.Actor = new Game.Class({
 		this.collisions.actors = collides;
 	},
 	
+	collides_with_triggers : function(){
+		var collides = {};
+		this.engine.triggers.forEach(function(trigger){
+			var results = this.collides_with(trigger);
+			if(results){
+				//TODO don't call this right here.. instead tell the trigger it has been called...
+				//even better don't even use this function allow the triggers to check the actors if they have been collided with them
+				trigger.trigger_event();
+			}
+		}.bind(this));
+		this.collisions.structures = collides;
+		//return collides;
+	},
+	
 	collides_with_structures : function(){
 		var collides = {};
 		this.engine.structures.forEach(function(structure){
@@ -249,6 +263,7 @@ Game.Actor = new Game.Class({
 			for(var s in borders){
 				var item = borders[s];
 				
+				if(!item.structure.passable){
 				if(this._heading.y == 'down'){
 					if(item.hasOwnProperty('top')){
 						this._collide_bottom(thisStruct);										
@@ -262,6 +277,7 @@ Game.Actor = new Game.Class({
 						this._stop_jump();			
 					}
 				}
+				}
 			}
 			
 		var structures = this.collisions.structures;
@@ -270,6 +286,7 @@ Game.Actor = new Game.Class({
 		for(var struct in structures){			
 			var thisStruct = structures[struct];
 			
+			if(!thisStruct.structure.passable){
 			if(this._heading.y == 'down'){
 				if(thisStruct.hasOwnProperty('bottom')){
 					this._collide_bottom(thisStruct);										
@@ -312,7 +329,8 @@ Game.Actor = new Game.Class({
 				this._collide_right(thisStruct);
 			}
 			*/	
-		//}		
+		//}
+		}		
 		};
 	},
 	_collide_top : function(thisStruct){
