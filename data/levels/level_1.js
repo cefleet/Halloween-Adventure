@@ -123,7 +123,7 @@ var level1 = new Game.Level({
 				}
 			}),
 			new Game.Structure.EventTrigger({
-				name:'level_1_exit',
+				name:'exit_door',
 				apply_gravity: false,
 				passable:true,
 				size:{

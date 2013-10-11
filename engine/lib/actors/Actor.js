@@ -29,6 +29,7 @@ Game.Actor = new Game.Class({
 		
 		//TODO this is all wrong now
 		this.sprite.type = this.sprite.type || 'box';
+		this.sprite.fill = this.sprite.fill || '#000000';
 		this.sprite.size = this.sprite.size || this.size;
 		this.sprite.sprite_pos = this.sprite.sprite_pos || {
 			x:0,
@@ -80,7 +81,7 @@ Game.Actor = new Game.Class({
 	
 	//TODO this will be replaced with rendor and actually merged
 	draw : function(ctx){
-		if(this.sprite.type == 'rectangle'){
+		if(this.sprite.type == 'box'){
 			ctx.fillStyle = this.sprite.fill;
   			ctx.fillRect(this.size.x, this.size.y, this.size.w, this.size.h);
   		} else if(this.sprite.type == 'sprite') {

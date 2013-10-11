@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	level1.add_to_engine(Platformer);
 	level2.add_to_engine(Platformer);
+	
 	level1.load();
 	
 	var keyMap = new Game.KeyMap({
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	
 	//TODO This should be just a platform
+	
 	Game.Actor.prototype.check_floor = function(){
 		if(this.location.y > Platformer.canvas.height-this.size.h){
 			this.location.y = Platformer.canvas.height-this.size.h;
