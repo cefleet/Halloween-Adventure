@@ -12,73 +12,76 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 	
-	player = new Game.Actor.Player({		
-				name: 'Player',
-				physics:{
-					mass:3,
-					apply_gravity:true,
-					jump_force:350,
-					jump_range:10,
-					speed:8			
+	Platformer.player = new Game.Actor.Player({		
+		name: 'Player',
+		physics:{
+			mass:3,
+			apply_gravity:true,
+			jump_force:350,
+			jump_range:10,
+			speed:8			
+		},
+		size:{
+			h:50,
+			w:50
+		},
+		location:{
+			x:10,
+			y:10		
+		},
+		sprite : {			
+			type:'sprite',
+			resource: new Game.Resource.Image.Sprite({
+				name:'player',
+				id:"player1",
+				url:'resources/sprites/player.png'
+			}),
+			positions : {
+				'left':{
+					x:0,
+					y:0
 				},
-				size:{
-					h:50,
-					w:50
-				},
-				location:{
-					x:10,
-					y:10		
-				},
-				sprite : {			
-					type:'sprite',
-					resource: new Game.Resource.Image.Sprite({
-						name:'player',
-						id:"player1",
-						url:'resources/sprites/player.png'
-					}),
-					positions : {
-						'left':{
-							x:0,
-							y:0
-						},
-						'right':{
-							x:50,
-							y:0
-						}
-					}
+				'right':{
+					x:50,
+					y:0
 				}
-			});
+			}
+		}
+	});
 	
 	//secondPlatform.add_to_engine(Platformer);
 	//thirdPlatform.add_to_engine(Platformer);
 	//fouthPlatform.add_to_engine(Platformer);
 	
+	
+	
+	level1.add_to_engine(Platformer);
+	level2.add_to_engine(Platformer);
+	level1.load();
+	
 	var keyMap = new Game.KeyMap({
 		"move_left": {
 			key_code:65,
 			key_ddavalue:'a',
-			action:player.move_left,
-			bind: player
+			action:Platformer.player.move_left,
+			bind: Platformer.player
 		},
 		"move_right": {
 			key_code:68,
 			key_value:'d',
-			action: player.move_right,
-			bind: player
+			action: Platformer.player.move_right,
+			bind: Platformer.player
 		},
 		"jump": {
 			key_code:32,
 			key_value:'spacebar',
-			action: player.jump,
-			bind: player
+			action: Platformer.player.jump,
+			bind: Platformer.player
 		}
 	});
 	
 	keyMap.add_to_engine(Platformer);
 	
-	level1.add_to_engine(Platformer);
-	level1.load();
-	player.add_to_engine(Platformer);
 	
 	//TODO This should be just a platform
 	Game.Actor.prototype.check_floor = function(){

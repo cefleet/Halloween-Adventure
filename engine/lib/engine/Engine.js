@@ -102,6 +102,11 @@ Game.GameEngine = new Game.Class({
 			
 		}.bind(this));
 		
+		//This is questionable
+		this.triggers.forEach(function(trigger){
+			trigger.draw();
+		});
+		
 		this.texts.forEach(function(text){	
 			if(text._show){
 				text.draw();

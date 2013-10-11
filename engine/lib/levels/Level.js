@@ -31,7 +31,8 @@ Game.Level = new Game.Class({
 		this.engine.store.triggers = this.engine.triggers;
 		this.engine.triggers = [];
 		
-		this.load_objects();		
+		this.load_objects();
+		this.load_player();		
 		this.setup();
 		
 		this.start();
@@ -72,9 +73,17 @@ Game.Level = new Game.Class({
 		
 		this.texts.forEach(function(texts){
 			texts.add_to_engine(this.engine);
-		}.bind(this));
-		
+		}.bind(this));		
 	},
+	
+	load_player: function(){
+		if(this.engine.hasOwnProperty('player')){
+			//it adds player as an actor
+			this.engine.player.move_to(this.player.start_position.x,this.player.start_position.y)
+			this.engine.player.add_to_engine(this.engine);
+		};
+	},
+	
 	setup: function(){
 		console.log('setting up');
 		this.backgrounds[0].set_background();

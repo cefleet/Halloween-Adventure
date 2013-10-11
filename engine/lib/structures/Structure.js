@@ -16,6 +16,7 @@ Game.Structure = new Game.Class({
 			h:10
 		},
 		
+		this.structure.draw_type = this.structure.draw_type || 'fill';
 		/*this.passable can also be an object {
 			top: {
 				from_top:false,
@@ -30,6 +31,7 @@ Game.Structure = new Game.Class({
 		*/
 		this.structure.size = this.structure.size || this.size;
 		this.structure.fill = this.structure.fill || '#000000';
+		
 		this.passable = this.passable || false;
 		this.bbox_padding = this.bbox_padding || 0;
 		this._location = {};
@@ -73,12 +75,30 @@ Game.Structure = new Game.Class({
 		this.boxes = boxes;
 	},
 	
+	
 	draw : function(ctx){
+	if(this.structure.draw_type === 'sprite'){
+		this.engine.ctx.drawImage(
+			this.structure.sprite.image,
+			//this.structure.sprite.sprite_pos.x,
+			//this.structure.sprite.sprite_pos.y,
+			0,
+			0,
+			this.structure.size.w,
+			this.structure.size.h,
+			this.location.x, 
+			this.location.y, 
+			this.size.w, 
+			this.size.h
+		);	
+  	} else {
 		this.engine.ctx.fillStyle = this.structure.fill;
   		this.engine.ctx.fillRect(this.location.x, this.location.y, this.size.w, this.size.h);
-  		
+  	}	
   		this.calculate_boxes();
+  	
 	},
+	
 	
 	add_to_engine: function(engine){
 		engine.structures.push(this);
