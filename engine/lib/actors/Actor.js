@@ -21,7 +21,12 @@ Game.Actor = new Game.Class({
 		this._heading = {};
 		
 		this.physics.speed = this.physics.speed || 8;
-		this.physics.apply_gravity = this.physics.apply_gravity || true,
+
+		//TODO here is something funny... The false results in a false so it goes to the default
+		this.physics.apply_gravity = this.physics.apply_gravity;
+		if(this.physics.apply_gravity === null || typeof this.physics.apply_gravity === 'undefined'){
+			this.physics.apply_gravity = true;
+		}
 		this.physics.yAccel = 0;
 		this.physics.yVelocity = 0;
 		
@@ -83,7 +88,7 @@ Game.Actor = new Game.Class({
 	draw : function(ctx){
 		if(this.sprite.type == 'box'){
 			ctx.fillStyle = this.sprite.fill;
-  			ctx.fillRect(this.size.x, this.size.y, this.size.w, this.size.h);
+  			ctx.fillRect(this.location.x, this.location.y, this.size.w, this.size.h);
   		} else if(this.sprite.type == 'sprite') {
   			this.render();	
   		}
@@ -267,6 +272,7 @@ Game.Actor = new Game.Class({
 				if(!item.structure.passable){
 				if(this._heading.y == 'down'){
 					if(item.hasOwnProperty('top')){
+						console.
 						this._collide_bottom(thisStruct);										
 					}
 				}
@@ -342,7 +348,7 @@ Game.Actor = new Game.Class({
 	},
 	
 	_collide_bottom : function(thisStruct){
-		if(thisStruct.bottom.indexOf('top') > -1){				
+		if(thisStruct.bottom.indexOf('top') > -1){
 			if([1,2,3,4].indexOf(this.physics.jump) < 0){
 				this.move_to(null,thisStruct.structure.location.y-this.size.h);
 				this.physics.can_jump = true;			

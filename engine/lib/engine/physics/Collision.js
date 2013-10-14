@@ -1,3 +1,4 @@
+//TODO this actually should just be an object Much like Util and does not need to be included as a property of the Engine Class
 Game.Collision = new Game.Class({
 	initialize: function(){
 		
@@ -20,7 +21,9 @@ Game.Collision = new Game.Class({
 	//l2 = {s:['x','y'], e:['x',y']};
 	//http://jsfiddle.net/justin_c_rounds/Gd2S2/
 	line_contact : function(l1,l2){
-		var line1StartX, line1StartY, line1EndX, line1EndY, line2StartX, line2StartY, line2EndX, line2EndY, denominator, a, b, numerator1, numerator2, result = false;
+		var line1StartX, line1StartY, line1EndX, line1EndY, line2StartX, 
+		line2StartY, line2EndX, line2EndY, denominator, a, b, numerator1, 
+		numerator2, result = false;
     	
     	line1StartX = l1.s[0];
     	line1StartY = l1.s[1];
@@ -32,7 +35,8 @@ Game.Collision = new Game.Class({
     	line2EndX = l2.e[0];
     	line2EndY = l2.e[1];
     	
-    	denominator = ((line2EndY - line2StartY) * (line1EndX - line1StartX)) - ((line2EndX - line2StartX) * (line1EndY - line1StartY));
+    	denominator = ((line2EndY - line2StartY) * (line1EndX - line1StartX)) - 
+    					((line2EndX - line2StartX) * (line1EndY - line1StartY));
     	if (denominator == 0) {
         	return result;
     	}

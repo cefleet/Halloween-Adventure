@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	
 	//TODO This should be just a platform
-	
+	/*
 	Game.Actor.prototype.check_floor = function(){
 		if(this.location.y > Platformer.canvas.height-this.size.h){
 			this.location.y = Platformer.canvas.height-this.size.h;
@@ -99,10 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		actor.add_to_on(actor.check_floor);
 	});
 	
+	
 	Platformer.texts.forEach(function(text){
 		text.add_to_on(text.show)
 	});
-	
+	*/
 	Platformer.keymap.listen_for_key_event();
 	
 
@@ -110,11 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	Platformer.render = function(){
 		
 		
-		//checks the key events 
-		
+		//checks the key events
+		//TODO this needs to be refactord badly		
 		for(keyEvent in Platformer.keymap.keyEvents){
 			if(Platformer.keymap.isDown(keyEvent)){
-				if(Platformer.keymap.keyEvents[keyEvent] != 'jump' || Platformer.actors[0].physics.can_jump == true){
+				//actors[0] is the problem here
+				if(Platformer.keymap.keyEvents[keyEvent] != 'jump' || Platformer.player.physics.can_jump == true){
   					var action = Platformer.keymap.keyEvents[keyEvent];
 					Platformer.keymap.map[action].bind.add_to_on(Platformer.keymap.map[action].action);
 				}
@@ -125,7 +127,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			actor.on();
 			actor.calculate_heading();
 			actor.intersects_structures_line_borders();
-			actor.collides_with_triggers();
+			
+			actor.collides_with_actors();
+			//This overides the othes..
+			//TODO this assumes all actors or enemies this of course should be changed in the future
+			
+			var i =0;
+			if(actor.id === Platformer.player.id){
+				for(var col in actor.collisions.actors){
+					if(col) i++
+				}
+				if(i> 0){
+					console.log('A hit, a very palpable hit');
+					actor.move_to(10,10);
+				}
+				actor.collides_with_triggers();			
+			}
 			actor.collides_with_structures();
 			actor.adjust_position_to_structures();
 			

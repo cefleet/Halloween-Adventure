@@ -1,6 +1,7 @@
 Game.Event = new Game.Class({
 	initialize : function(options){
 		Game.Util.extend(this,options);
+		
 		this.action = this.action || function(){
 			console.log('no action')
 		}
@@ -32,5 +33,9 @@ Game.Event = new Game.Class({
 	//is this nesessary?
 	add_tick : function(){
 		this._tick = this._tick+1;
+	},
+	
+	reset_tick : function(){
+		this._tick = 1;
 	}
 });

@@ -58,7 +58,8 @@ Game.GameEngine = new Game.Class({
 		
 		this.actors.forEach(function(actor){					
 			//apply gravity
-			if(this.apply_gravity && actor.physics.apply_gravity){
+			
+			if(this.apply_gravity === true && actor.physics.apply_gravity === true){
 				this.gravity.apply_to_actor(actor);
 			}
 			
@@ -86,6 +87,11 @@ Game.GameEngine = new Game.Class({
 	 */
 	post_render: function(){
 		
+		//This is questionable
+		this.triggers.forEach(function(trigger){
+			trigger.draw();
+		});
+		
 		//post render needs just to draw		
 		this.structures.forEach(function(structure){
 			structure.draw(this.ctx);
@@ -102,10 +108,7 @@ Game.GameEngine = new Game.Class({
 			
 		}.bind(this));
 		
-		//This is questionable
-		this.triggers.forEach(function(trigger){
-			trigger.draw();
-		});
+		
 		
 		this.texts.forEach(function(text){	
 			if(text._show){

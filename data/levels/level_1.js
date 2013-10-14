@@ -17,6 +17,21 @@ var level1 = new Game.Level({
 		],
 		structures : [
 			new Game.Structure({
+				name:'floor',
+				apply_gravity:false,
+				size:{
+					w:800,
+					h:60
+				},
+				location:{
+					x:0,
+					y:580
+				},
+				structure: {
+					fill:'#222222'
+				}
+			}),
+			new Game.Structure({
 				name:'aPlatform',
 				apply_gravity:false,
 				size:{
@@ -159,7 +174,7 @@ var level1 = new Game.Level({
 		]		
 	});
 	
-	level1.structures[7].events.push(
+	level1.structures[8].events.push(
 		new Game.Event({
 			action : function(){
 				this.texts[0].text = 'Level 1 Completed';

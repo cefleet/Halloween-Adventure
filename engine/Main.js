@@ -1,5 +1,5 @@
 var Game = {};
-
+//When the program is compiled this will not be needed
 var libFiles = [
 	"tools/Util.js",
 	"tools/Class.js",

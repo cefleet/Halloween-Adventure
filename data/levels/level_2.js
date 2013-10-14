@@ -17,13 +17,30 @@ var level2 = new Game.Level({
 			new Game.Actor({
 				name:'batguy',
 				size:{
-					w:31,
-					h:21
+					w:50,
+					h:70
 				},
 				location: {
-					x:300,
-					y:300
-				}				
+					x:400,
+					y:270
+				},
+				physics:{
+					mass:0,
+					apply_gravity:false,
+					jump_force:0,
+					jump_range:0,
+					speed:8			
+				},
+				sprite : {			
+					/*
+					type:'sprite',
+					resource: new Game.Resource.Image.Sprite({
+						name:'batman',
+						id:"batman",
+						url:'resources/sprites/player.png'
+					})*/
+					
+				}			
 			})
 		],
 		structures : [
@@ -35,7 +52,7 @@ var level2 = new Game.Level({
 					h:50
 				},
 				location:{
-					x:460,
+					x:450,
 					y:550
 				},
 				structure: {
@@ -58,7 +75,7 @@ var level2 = new Game.Level({
 				}
 			}),
 			
-			new Game.Structure({
+			new Game.Structure.EventTrigger({
 				name:'water',
 				apply_gravity:false,
 				passable:true,
@@ -199,4 +216,21 @@ level2.structures[8].events.push(
 				*/
 			}.bind(level2)
 		})
+);
+
+//TODO so much wrongness here
+level2.structures[2].events.push(
+	new Game.Event({
+		action : function(){
+			setTimeout(function(){
+				//needing a referencesing system so badly right now
+				Platformer.player.move_to(10,10);
+				Platformer.levels[1].load();
+				this.structures[2].events[0].reset_tick();
+				this.structures[2].events[0].status = 1;
+
+				//reset the event somehow	
+			}.bind(this), 400)
+		}.bind(level2)
+	})
 );
