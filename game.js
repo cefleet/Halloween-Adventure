@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	level1.add_to_engine(Platformer);
 	level2.add_to_engine(Platformer);
+	level3.add_to_engine(Platformer);
 	
 	level1.load();
 	

@@ -15,10 +15,10 @@ var level2 = new Game.Level({
 		],
 		actors : [
 			new Game.Actor({
-				name:'batguy',
+				name:'spiky',
 				size:{
 					w:50,
-					h:70
+					h:50
 				},
 				location: {
 					x:400,
@@ -32,13 +32,13 @@ var level2 = new Game.Level({
 					speed:8			
 				},
 				sprite : {			
-					/*
+					
 					type:'sprite',
 					resource: new Game.Resource.Image.Sprite({
 						name:'batman',
 						id:"batman",
-						url:'resources/sprites/player.png'
-					})*/
+						url:'resources/sprites/spikey.png'
+					})
 					
 				}			
 			})
@@ -234,3 +234,32 @@ level2.structures[2].events.push(
 		}.bind(level2)
 	})
 );
+
+var patrol = function(actor){
+	this.tick = 1;	
+	this.actor = actor;
+}
+patrol.prototype = {
+		pattern : function(){
+			if(typeof this.tick === 'undefined'){
+				this.tick = 1
+			}
+			if(this.tick == 1){
+				this.move(4,0);
+				this.tick = this.tick+1;
+			} else if(this.tick == 2){
+				this.move(0,4);
+				this.tick = this.tick+1;
+			} else if(this.tick == 3){
+				this.move(-4,0);
+				this.tick = this.tick+1;
+			} else if(this.tick == 4){
+				this.move(0,-4);
+				this.tick = 1;
+			}
+		}
+}
+
+var spikePatrol = new patrol(level2.actors[0]);
+
+level2.actors[0].add_to_on(spikePatrol.pattern);

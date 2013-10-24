@@ -136,6 +136,7 @@ Game.Actor = new Game.Class({
 	
 	on: function(){
 		for(var id in this.actions){
+
 			if(typeof this.actions[id] === 'function'){
 				this.actions[id](id);
 			}
